@@ -24,5 +24,16 @@
         <action
             android:id="@+id/action_SecondFragment_to_FirstFragment"
             app:destination="@id/FirstFragment" />
+
+        <action
+            android:id="@+id/action_SecondFragment_to_FlutterFragment"
+            app:destination="@id/MyFlutterFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/MyFlutterFragment"
+        android:name="com.example.testfluttermodel.MyFlutterFragment"
+        android:label="Flutter Fragment" >
+
     </fragment>
 </navigation>

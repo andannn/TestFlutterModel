@@ -13,7 +13,8 @@ import com.example.testfluttermodel.databinding.FragmentFirstBinding
  */
 class FirstFragment : Fragment() {
 
-private var _binding: FragmentFirstBinding? = null
+    private var _binding: FragmentFirstBinding? = null
+
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
@@ -23,8 +24,8 @@ private var _binding: FragmentFirstBinding? = null
         savedInstanceState: Bundle?
     ): View? {
 
-      _binding = FragmentFirstBinding.inflate(inflater, container, false)
-      return binding.root
+        _binding = FragmentFirstBinding.inflate(inflater, container, false)
+        return binding.root
 
     }
 
@@ -32,11 +33,18 @@ private var _binding: FragmentFirstBinding? = null
         super.onViewCreated(view, savedInstanceState)
 
         binding.buttonFirst.setOnClickListener {
-            findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
+            parentFragmentManager
+                .beginTransaction()
+                .replace(
+                    R.id.activity_root,
+                    SecondFragment()
+                )
+                .addToBackStack("AA")
+                .commit()
         }
     }
 
-override fun onDestroyView() {
+    override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
