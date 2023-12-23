@@ -21,11 +21,19 @@
         app:layout_constraintTop_toTopOf="parent" />
 
         <Button
-            android:id="@+id/button_to_flutter"
+            android:id="@+id/button_to_flutterA"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Flutter"
+            android:text="FlutterA"
             app:layout_constraintBottom_toTopOf="@id/button_second"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+        <Button
+            android:id="@+id/button_to_flutterB"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="FlutterB"
+            app:layout_constraintBottom_toTopOf="@id/button_to_flutterA"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 

@@ -1,10 +1,12 @@
 package com.example.testfluttermodel
 
+import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import androidx.navigation.fragment.findNavController
 import com.example.testfluttermodel.databinding.FragmentFirstBinding
 
@@ -22,25 +24,16 @@ class FirstFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-
+    ): View {
         _binding = FragmentFirstBinding.inflate(inflater, container, false)
         return binding.root
-
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         binding.buttonFirst.setOnClickListener {
-            parentFragmentManager
-                .beginTransaction()
-                .replace(
-                    R.id.activity_root,
-                    SecondFragment()
-                )
-                .addToBackStack("AA")
-                .commit()
+            findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
         }
     }
 
