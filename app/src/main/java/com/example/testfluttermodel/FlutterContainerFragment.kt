@@ -2,6 +2,7 @@ package com.example.testfluttermodel
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -56,6 +57,7 @@ class FlutterContainerFragment : Fragment() {
 
     override fun onDestroy() {
         super.onDestroy()
+        Log.d(TAG, "onDestroy: ")
         requireActivity().window.clearFlags(
             WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
         )

@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import androidx.navigation.fragment.findNavController
 import com.example.testfluttermodel.databinding.FragmentSecondBinding
 
@@ -28,7 +29,13 @@ class SecondFragment : Fragment() {
 
         _binding = FragmentSecondBinding.inflate(inflater, container, false)
         return binding.root
+    }
 
+    override fun onResume() {
+        super.onResume()
+        requireActivity().window.clearFlags(
+            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
+        )
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
