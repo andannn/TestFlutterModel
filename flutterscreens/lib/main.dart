@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'channel/method_channel.dart';
+
 void main(List<String> args) {
   print('JQN args $args');
   final screenName = args[0];
@@ -94,8 +96,6 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 }
 
-
-
 class ScreenB extends StatelessWidget {
   const ScreenB({super.key});
 
@@ -124,6 +124,14 @@ class ScreenBPage extends StatefulWidget {
 class _ScreenBPageState extends State<ScreenBPage> {
   int _counter = 0;
 
+  late FlutterMethodChannel channel;
+
+  @override
+  void initState() {
+    channel = FlutterMethodChannel();
+    super.initState();
+  }
+
   void _incrementCounter() {
     setState(() {
       _counter++;
@@ -146,6 +154,16 @@ class _ScreenBPageState extends State<ScreenBPage> {
             Text(
               '$_counter',
               style: Theme.of(context).textTheme.headlineMedium,
+            ),
+            FutureBuilder(
+              future: channel.foo(),
+              builder: (BuildContext context, AsyncSnapshot<int> snapshot) {
+                if (snapshot.connectionState == ConnectionState.done) {
+                  return Text(snapshot.data?.toString() ?? "null");
+                } else {
+                  return const Placeholder();
+                }
+              },
             ),
             TextButton(
               onPressed: () {

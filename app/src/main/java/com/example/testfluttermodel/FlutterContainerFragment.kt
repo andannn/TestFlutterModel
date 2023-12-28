@@ -22,6 +22,7 @@ class FlutterContainerFragment : Fragment() {
         private const val TAG_FLUTTER_FRAGMENT = "flutter_fragment_tag"
     }
 
+    lateinit var flutterFragment: FlutterFragment
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -33,6 +34,7 @@ class FlutterContainerFragment : Fragment() {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
+        Log.d(TAG, "onAttach: ")
         // make flutter fragment full screen.
         requireActivity().window.setFlags(
             WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
@@ -40,10 +42,11 @@ class FlutterContainerFragment : Fragment() {
         )
 
         // handle back key in flutter engine.
-        val flutterFragment = FlutterFragment.NewEngineFragmentBuilder().apply {
-            shouldAutomaticallyHandleOnBackPressed(true)
-            dartEntrypointArgs(listOf(args.flutterScreenName))
-        }.build<FlutterFragment>()
+        flutterFragment =
+            FlutterFragment.NewEngineFragmentBuilder(CustomFlutterFragment::class.java).apply {
+                shouldAutomaticallyHandleOnBackPressed(true)
+                dartEntrypointArgs(listOf(args.flutterScreenName))
+            }.build<CustomFlutterFragment>()
 
         childFragmentManager
             .beginTransaction()
@@ -54,6 +57,7 @@ class FlutterContainerFragment : Fragment() {
             )
             .commit()
     }
+
 
     override fun onDestroy() {
         super.onDestroy()
