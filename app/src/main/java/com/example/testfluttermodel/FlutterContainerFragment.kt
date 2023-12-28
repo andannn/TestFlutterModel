@@ -14,6 +14,7 @@ import io.flutter.embedding.android.FlutterFragment
 
 private const val TAG = "MyFlutterFragment"
 
+
 class FlutterContainerFragment : Fragment() {
 
     private val args by navArgs<FlutterContainerFragmentArgs>()
