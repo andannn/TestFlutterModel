@@ -21,7 +21,6 @@ public class CustomFlutterFragment extends FlutterFragment {
         super.onViewCreated(view, savedInstanceState);
         Log.d(TAG, "onViewCreated " + requireView().getViewTreeObserver().hashCode());
 
-        // 在 doOnDetach 中处理
         ViewKt.doOnDetach(requireView(), (v) -> {
             Log.d(TAG, "doOnDetach: requireView().viewTreeObserver " + requireView().getViewTreeObserver().hashCode());
 
@@ -32,7 +31,6 @@ public class CustomFlutterFragment extends FlutterFragment {
                 Object fieldValue = field.get(CustomFlutterFragment.this);
                 Log.d(TAG, "doOnDetach: fieldValue " + fieldValue);
 
-                // 移除 ViewTreeObserver.OnWindowAttachListener
                 if (fieldValue instanceof ViewTreeObserver.OnWindowFocusChangeListener) {
                     removeOnWindowAttachListener((ViewTreeObserver.OnWindowFocusChangeListener) fieldValue);
                 }

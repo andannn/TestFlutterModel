@@ -4,13 +4,15 @@ import 'channel/method_channel.dart';
 
 void main(List<String> args) {
   print('JQN args $args');
-  final screenName = args[0];
-  switch (screenName) {
-    case "screenA":
-      runApp(const ScreenA());
-    case "screenB":
-      runApp(const ScreenB());
-  }
+  runApp(const ScreenA());
+
+  // final screenName = args[0];
+  // switch (screenName) {
+  //   case "screenA":
+  //     runApp(const ScreenA());
+  //   case "screenB":
+  //     runApp(const ScreenB());
+  // }
 }
 
 class ScreenA extends StatelessWidget {

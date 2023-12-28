@@ -11,6 +11,9 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
 import com.example.testfluttermodel.databinding.FlutterFragmentContainerLayoutBinding
 import io.flutter.embedding.android.FlutterFragment
+import io.flutter.embedding.engine.FlutterEngine
+import io.flutter.embedding.engine.FlutterEngineCache
+import io.flutter.embedding.engine.dart.DartExecutor
 
 private const val TAG = "MyFlutterFragment"
 
@@ -42,11 +45,32 @@ class FlutterContainerFragment : Fragment() {
             WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
         )
 
-        // handle back key in flutter engine.
+//        val cacheEngineId = args.flutterScreenName!!
+//
+//        val flutterEngineCache = FlutterEngineCache.getInstance()
+//
+//        if (!flutterEngineCache.contains(cacheEngineId)) {
+//            Log.d(TAG, "new engine: ")
+//            val flutterEngine = FlutterEngine(context.applicationContext)
+//
+//            flutterEngine.dartExecutor.executeDartEntrypoint(
+//                DartExecutor.DartEntrypoint.createDefault()
+//            )
+//
+//            flutterEngineCache.put(cacheEngineId, flutterEngine)
+//        }
+//
+//        // handle back key in flutter engine.
+//        flutterFragment =
+//            FlutterFragment.withCachedEngine(args.flutterScreenName!!).apply {
+//                shouldAutomaticallyHandleOnBackPressed(true)
+////                destroyEngineWithFragment(true)
+//            }.build<CustomFlutterFragment>()
+//         handle back key in flutter engine.
         flutterFragment =
-            FlutterFragment.NewEngineFragmentBuilder(CustomFlutterFragment::class.java).apply {
+            FlutterFragment.withNewEngine().apply {
                 shouldAutomaticallyHandleOnBackPressed(true)
-                dartEntrypointArgs(listOf(args.flutterScreenName))
+//                destroyEngineWithFragment(true)
             }.build<CustomFlutterFragment>()
 
         childFragmentManager
