@@ -10,6 +10,7 @@ import android.view.WindowManager
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import com.example.testfluttermodel.core_data.CommonRepositoryImpl
 import com.example.testfluttermodel.R
 import com.example.testfluttermodel.core_flutter.channel.FlutterCommonMethodChannel
@@ -45,6 +46,7 @@ abstract class FlutterContainerFragment : Fragment() {
                     flutterMethodHandler = FlutterCommonMethodChannel(
                         messenger = engine.dartExecutor,
                         scope = lifecycleScope,
+                        navController = findNavController(),
                         commonRepository = CommonRepositoryImpl()
                     )
                 }
@@ -84,6 +86,7 @@ abstract class FlutterContainerFragment : Fragment() {
                 ).apply {
                     // handle back key in flutter engine.
                     shouldAutomaticallyHandleOnBackPressed(true)
+                    dartEntrypoint(flutterScreenName)
                 }.build<CustomFlutterFragment>()
 
             childFragmentManager

@@ -34,11 +34,33 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
+
+        <action
+            android:id="@+id/action_SecondFragment_to_FlutterScreenB"
+            app:destination="@id/FlutterScreenB"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+
     </fragment>
 
     <fragment
         android:id="@+id/FlutterScreenA"
-        android:name="com.example.testfluttermodel.feature_screenA.FlutterScreenA" />
+        android:name="com.example.testfluttermodel.feature_screenA.FlutterScreenA" >
+
+        <action
+            android:id="@+id/action_FlutterScreenA_to_FlutterScreenB"
+            app:destination="@id/FlutterScreenB"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/FlutterScreenB"
+        android:name="com.example.testfluttermodel.feature_screenB.FlutterScreenB" />
 
     <navigation android:id="@+id/login_navigation"
         app:startDestination="@id/FlutterLoginA">

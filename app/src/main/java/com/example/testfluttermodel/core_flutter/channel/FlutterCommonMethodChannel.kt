@@ -1,6 +1,9 @@
 package com.example.testfluttermodel.core_flutter.channel
 
+import androidx.navigation.NavController
+import com.example.testfluttermodel.SecondFragmentDirections
 import com.example.testfluttermodel.core_data.CommonRepository
+import com.example.testfluttermodel.feature_screenA.FlutterScreenADirections
 import io.flutter.plugin.common.BinaryMessenger
 import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler
@@ -20,6 +23,7 @@ interface FlutterMethodHandler {
 class FlutterCommonMethodChannel(
     messenger: BinaryMessenger,
     scope: CoroutineScope,
+    private val navController: NavController,
     private val commonRepository: CommonRepository
 ) : FlutterMethodHandler {
 
@@ -33,9 +37,14 @@ class FlutterCommonMethodChannel(
                     result.success(fooResult)
                 }
             }
+
+            "navigateToScreenB" -> {
+                val direction =
+                    FlutterScreenADirections.actionFlutterScreenAToFlutterScreenB()
+                navController.navigate(direction)
+            }
         }
     }
-
 
     init {
         methodChannel = MethodChannel(messenger, "com.example.testfluttermodel/channel").apply {

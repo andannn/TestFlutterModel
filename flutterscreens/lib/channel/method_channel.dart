@@ -1,12 +1,15 @@
 import 'package:flutter/services.dart';
 
-abstract class CommonRepository {
+abstract class MethodHandler {
   Future<int> foo();
 
   Future<String> bar();
+
+
+  Future navigateToScreenB();
 }
 
-class FlutterMethodChannel implements CommonRepository {
+class FlutterMethodChannel implements MethodHandler {
 
   final _methodChannel = const MethodChannel("com.example.testfluttermodel/channel");
   @override
@@ -16,9 +19,12 @@ class FlutterMethodChannel implements CommonRepository {
 
   @override
   Future<int> foo() async {
-    print("JQN foo call");
     final result = await _methodChannel.invokeMethod<int>('foo');
-    print("JQN foo result");
     return result ?? 0;
+  }
+
+  @override
+  Future navigateToScreenB() async {
+    await _methodChannel.invokeMethod<int>('navigateToScreenB');
   }
 }

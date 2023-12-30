@@ -47,11 +47,11 @@ class SecondFragment : Fragment() {
             findNavController().navigate(direction)
         }
 
-//        binding.buttonToFlutterB.setOnClickListener {
-//            val direction =
-//                SecondFragmentDirections.actionSecondFragmentToFlutterFragment("screenB")
-//            findNavController().navigate(direction)
-//        }
+        binding.buttonToFlutterB.setOnClickListener {
+            val direction =
+                SecondFragmentDirections.actionSecondFragmentToFlutterScreenB()
+            findNavController().navigate(direction)
+        }
     }
 
     override fun onDestroyView() {
