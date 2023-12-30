@@ -18,6 +18,7 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
+
     </fragment>
 
     <fragment
@@ -27,16 +28,8 @@
         tools:layout="@layout/fragment_second">
 
         <action
-            android:id="@+id/action_SecondFragment_to_FirstFragment"
-            app:destination="@id/FirstFragment"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right" />
-
-        <action
-            android:id="@+id/action_SecondFragment_to_FlutterFragment"
-            app:destination="@id/FlutterContainerFragment"
+            android:id="@+id/action_SecondFragment_to_FlutterScreenA"
+            app:destination="@id/FlutterScreenA"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
@@ -44,13 +37,25 @@
     </fragment>
 
     <fragment
-        android:id="@+id/FlutterContainerFragment"
-        android:name="com.example.testfluttermodel.FlutterContainerFragment"
-        tools:layout="@layout/flutter_fragment_container_layout">
-        <argument
-            android:name="flutterScreenName"
-            android:defaultValue="@null"
-            app:argType="string"
-            app:nullable="true" />
-    </fragment>
+        android:id="@+id/FlutterScreenA"
+        android:name="com.example.testfluttermodel.feature_screenA.FlutterScreenA" />
+
+    <navigation android:id="@+id/login_navigation"
+        app:startDestination="@id/FlutterLoginA">
+
+        <fragment
+            android:id="@+id/FlutterLoginA"
+            android:name="com.example.testfluttermodel.feature_login.FlutterLoginA" >
+
+        </fragment>
+
+        <action
+            android:id="@+id/action_login_to_first_fragment"
+            app:destination="@id/FirstFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+
+    </navigation>
 </navigation>

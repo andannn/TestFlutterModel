@@ -1,5 +1,6 @@
-package com.example.testfluttermodel;
+package com.example.testfluttermodel.core_flutter;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -18,17 +19,14 @@ public class CustomFlutterFragment extends FlutterFragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        Log.d(TAG, "onViewCreated " + requireView().getViewTreeObserver().hashCode());
+        Log.d(TAG, "onViewCreated " + hashCode());
 
         ViewKt.doOnDetach(requireView(), (v) -> {
-            Log.d(TAG, "doOnDetach: requireView().viewTreeObserver " + requireView().getViewTreeObserver().hashCode());
-
             try {
                 Class<?> targetClass = FlutterFragment.class;
                 Field field = targetClass.getDeclaredField("onWindowFocusChangeListener");
                 field.setAccessible(true);
                 Object fieldValue = field.get(CustomFlutterFragment.this);
-                Log.d(TAG, "doOnDetach: fieldValue " + fieldValue);
 
                 if (fieldValue instanceof ViewTreeObserver.OnWindowFocusChangeListener) {
                     removeOnWindowAttachListener((ViewTreeObserver.OnWindowFocusChangeListener) fieldValue);

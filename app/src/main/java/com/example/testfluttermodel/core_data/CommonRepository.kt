@@ -1,4 +1,4 @@
-package com.example.testfluttermodel.data
+package com.example.testfluttermodel.core_data
 
 import kotlinx.coroutines.delay
 
