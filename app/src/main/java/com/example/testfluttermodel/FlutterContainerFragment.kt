@@ -27,6 +27,7 @@ class FlutterContainerFragment : Fragment() {
     }
 
     lateinit var flutterFragment: FlutterFragment
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -45,32 +46,28 @@ class FlutterContainerFragment : Fragment() {
             WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
         )
 
-//        val cacheEngineId = args.flutterScreenName!!
-//
-//        val flutterEngineCache = FlutterEngineCache.getInstance()
-//
-//        if (!flutterEngineCache.contains(cacheEngineId)) {
-//            Log.d(TAG, "new engine: ")
-//            val flutterEngine = FlutterEngine(context.applicationContext)
-//
-//            flutterEngine.dartExecutor.executeDartEntrypoint(
-//                DartExecutor.DartEntrypoint.createDefault()
-//            )
-//
-//            flutterEngineCache.put(cacheEngineId, flutterEngine)
-//        }
-//
-//        // handle back key in flutter engine.
-//        flutterFragment =
-//            FlutterFragment.withCachedEngine(args.flutterScreenName!!).apply {
-//                shouldAutomaticallyHandleOnBackPressed(true)
-////                destroyEngineWithFragment(true)
-//            }.build<CustomFlutterFragment>()
-//         handle back key in flutter engine.
+        val cacheEngineId = args.flutterScreenName!!
+
+        val flutterEngineCache = FlutterEngineCache.getInstance()
+
+        if (!flutterEngineCache.contains(cacheEngineId)) {
+            Log.d(TAG, "new engine: ")
+            val flutterEngine = FlutterEngine(context.applicationContext)
+
+            flutterEngine.dartExecutor.executeDartEntrypoint(
+                DartExecutor.DartEntrypoint.createDefault()
+            )
+
+            flutterEngineCache.put(cacheEngineId, flutterEngine)
+        }
+
+        // handle back key in flutter engine.
         flutterFragment =
-            FlutterFragment.withNewEngine().apply {
+            FlutterFragment.CachedEngineFragmentBuilder(
+                CustomFlutterFragment::class.java,
+                args.flutterScreenName!!
+            ).apply {
                 shouldAutomaticallyHandleOnBackPressed(true)
-//                destroyEngineWithFragment(true)
             }.build<CustomFlutterFragment>()
 
         childFragmentManager
@@ -87,8 +84,14 @@ class FlutterContainerFragment : Fragment() {
     override fun onDestroy() {
         super.onDestroy()
         Log.d(TAG, "onDestroy: ")
-        requireActivity().window.clearFlags(
-            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
-        )
+
+        if (!requireActivity().isChangingConfigurations) {
+            // remove engine cache when destroy, but retains the cached engine when changing configuration.
+            FlutterEngineCache.getInstance().remove(args.flutterScreenName!!)
+
+            requireActivity().window.clearFlags(
+                WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
+            )
+        }
     }
 }
