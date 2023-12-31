@@ -1,8 +1,13 @@
 package com.example.testfluttermodel.core_flutter.channel
 
+import android.util.Log
 import androidx.navigation.NavController
+import androidx.navigation.navOptions
+import com.example.testfluttermodel.R
 import com.example.testfluttermodel.SecondFragmentDirections
 import com.example.testfluttermodel.core_data.CommonRepository
+import com.example.testfluttermodel.feature_login.FlutterLoginADirections
+import com.example.testfluttermodel.feature_login.FlutterLoginBDirections
 import com.example.testfluttermodel.feature_screenA.FlutterScreenADirections
 import io.flutter.plugin.common.BinaryMessenger
 import io.flutter.plugin.common.MethodChannel
@@ -20,6 +25,8 @@ interface FlutterMethodHandler {
     suspend fun someCallToFlutter(input: Int): String
 }
 
+private const val TAG = "FlutterCommonMethodChan"
+
 class FlutterCommonMethodChannel(
     messenger: BinaryMessenger,
     scope: CoroutineScope,
@@ -30,6 +37,7 @@ class FlutterCommonMethodChannel(
     private val methodChannel: MethodChannel
 
     private val handler = MethodCallHandler { call, result ->
+        Log.d(TAG, ": MethodCallHandler call $call")
         when (call.method) {
             "foo" -> {
                 scope.launch {
@@ -42,6 +50,23 @@ class FlutterCommonMethodChannel(
                 val direction =
                     FlutterScreenADirections.actionFlutterScreenAToFlutterScreenB()
                 navController.navigate(direction)
+            }
+
+            "navigateToLoginB" -> {
+                val direction =
+                    FlutterLoginADirections.actionFlutterLoginAToFlutterLoginB()
+                navController.navigate(direction)
+            }
+
+            "navigateToMainFlow" -> {
+                val direction =
+                    FlutterLoginBDirections.actionLoginToFirstFragment()
+                navController.navigate(
+                    direction,
+                    navOptions {
+                        popUpTo(R.id.nav_graph)
+                    },
+                )
             }
         }
     }

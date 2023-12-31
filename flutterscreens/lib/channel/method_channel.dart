@@ -5,13 +5,17 @@ abstract class MethodHandler {
 
   Future<String> bar();
 
-
   Future navigateToScreenB();
+
+  Future navigateToLoginB();
+
+  Future navigateToMainFlow();
 }
 
 class FlutterMethodChannel implements MethodHandler {
+  final _methodChannel =
+      const MethodChannel("com.example.testfluttermodel/channel");
 
-  final _methodChannel = const MethodChannel("com.example.testfluttermodel/channel");
   @override
   Future<String> bar() async {
     throw UnimplementedError();
@@ -24,7 +28,17 @@ class FlutterMethodChannel implements MethodHandler {
   }
 
   @override
-  Future navigateToScreenB() async {
-    await _methodChannel.invokeMethod<int>('navigateToScreenB');
+  Future navigateToScreenB() {
+    return _methodChannel.invokeMethod('navigateToScreenB');
+  }
+
+  @override
+  Future navigateToLoginB() {
+    return _methodChannel.invokeMethod('navigateToLoginB');
+  }
+
+  @override
+  Future navigateToMainFlow() {
+    return _methodChannel.invokeMethod('navigateToMainFlow');
   }
 }

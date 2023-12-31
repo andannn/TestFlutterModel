@@ -17,6 +17,7 @@ import com.example.testfluttermodel.core_flutter.channel.FlutterCommonMethodChan
 import com.example.testfluttermodel.core_flutter.channel.FlutterMethodHandler
 import com.example.testfluttermodel.databinding.FlutterFragmentContainerLayoutBinding
 import io.flutter.embedding.android.FlutterFragment
+import io.flutter.embedding.android.FlutterFragment.NewEngineInGroupFragmentBuilder
 import io.flutter.embedding.engine.FlutterEngine
 import io.flutter.embedding.engine.FlutterEngineCache
 import io.flutter.embedding.engine.dart.DartExecutor
@@ -73,6 +74,8 @@ abstract class FlutterContainerFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        Log.d(TAG, "onCreate: flutterScreenName $flutterScreenName")
+
         requireActivity().window.setFlags(
             WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
             WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
@@ -80,13 +83,12 @@ abstract class FlutterContainerFragment : Fragment() {
 
         if (savedInstanceState == null) {
             val flutterFragment =
-                FlutterFragment.NewEngineInGroupFragmentBuilder(
-                    /* fragmentClass = */ CustomFlutterFragment::class.java,
-                    /* engineGroupId = */ "flutter_engine_group"
+                FlutterFragment.NewEngineFragmentBuilder(
+                    CustomFlutterFragment::class.java,
                 ).apply {
                     // handle back key in flutter engine.
                     shouldAutomaticallyHandleOnBackPressed(true)
-                    dartEntrypoint(flutterScreenName)
+                    dartEntrypointArgs(listOf(flutterScreenName))
                 }.build<CustomFlutterFragment>()
 
             childFragmentManager

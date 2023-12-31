@@ -38,6 +38,11 @@ public class CustomFlutterFragment extends FlutterFragment {
         });
     }
 
+    @Override
+    public String getCachedEngineGroupId() {
+        return "flutter_engine_group";
+    }
+
     private void removeOnWindowAttachListener(ViewTreeObserver.OnWindowFocusChangeListener listener) {
         requireView().getViewTreeObserver().removeOnWindowFocusChangeListener(listener);
     }
