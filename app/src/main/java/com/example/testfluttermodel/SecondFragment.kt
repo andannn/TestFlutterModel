@@ -1,6 +1,7 @@
 package com.example.testfluttermodel
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -30,6 +31,7 @@ class SecondFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View {
+        Log.d(TAG, "onCreateView: $savedInstanceState ${this.hashCode()}")
         _binding = FragmentSecondBinding.inflate(inflater, container, false)
 
         mAdapter = MyAdapter(childFragmentManager, lifecycle)
